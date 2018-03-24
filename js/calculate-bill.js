@@ -40,9 +40,9 @@ function calculateBtnClicked(){
     billTotalElement.innerHTML = roundedBillTotal;
    
     if(roundedBillTotal < 30){
-        billTotalElement.classList.toggle("warning") 
+        billTotalElement.classList.add("warning") 
     }else if(roundedBillTotal > 29){
-        billTotalElement.classList.toggle("danger")
+        billTotalElement.classList.add("danger")
     }
 }
    
