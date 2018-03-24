@@ -39,10 +39,10 @@ function calculateBtnClicked(){
     var roundedBillTotal = totalPhoneBill(billString);
     billTotalElement.innerHTML = roundedBillTotal;
    
-    if(roundedBillTotal < 30){
-        billTotalElement.classList.add("warning") 
-    }else if(roundedBillTotal > 29){
-        billTotalElement.classList.add("danger")
+    if(roundedBillTotal >= 30){
+        billTotalElement.classList.add("danger") ;
+    }else if(roundedBillTotal >= 20){
+        billTotalElement.classList.add("warning");
     }
 }
    
