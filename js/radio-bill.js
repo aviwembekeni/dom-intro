@@ -3,13 +3,13 @@ var billItemTypeRadio = document.querySelector(".billItemTypeRadio");
 
 //get a reference to the add button
 var radioBillAddBtn = document.querySelector(".radioBillAddBtn");
-var callTotalElement = document.querySelector(".callTotalTwo");
-var smsTotalElement = document.querySelector(".smsTotalTwo");
-var totalCostElement = document.querySelector(".totalTwo");
+var callTotalElem = document.querySelector(".callTotalTwo");
+var smsTotalElem = document.querySelector(".smsTotalTwo");
+var totalCostElem = document.querySelector(".totalTwo");
 
 //create a variable that will keep track of the total bill
-var callsTotal = 0;
-var smsTotal = 0;
+var callsTot = 0;
+var smsTot = 0;
 
 //add an event listener for when the add button is pressed
 
@@ -18,33 +18,33 @@ var smsTotal = 0;
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen
 
-function textBillTotal(){
+function radioBillTotal(){
     var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
     
     if (checkedRadioBtn != null){
         var billItemType = checkedRadioBtn.value;
 
         if(billItemType === 'call'){
-            callsTotal += 2.75;
+            callsTot += 2.75;
     
         }else if(billItemType === 'sms'){
-            smsTotal += 0.75;
+            smsTot += 0.75;
     
         }
     
-        callTotalElement.innerHTML = callsTotal.toFixed(2);
-        smsTotalElement.innerHTML = smsTotal.toFixed(2);
-        var totalCost = callsTotal + smsTotal;
-        totalCostElement.innerHTML = totalCost.toFixed(2);
+        callTotalElem.innerHTML = callsTot.toFixed(2);
+        smsTotalElem.innerHTML = smsTot.toFixed(2);
+        var total = callsTot + smsTot;
+        totalCostElem.innerHTML = total.toFixed(2);
     
-        if (totalCost >= 50) {
-            totalCostElement.classList.add("danger");
-        } else if(totalCost >= 30){
-            totalCostElement.classList.add("warning");
+        if (total >= 50) {
+            totalCostElem.classList.add("danger");
+        } else if(total >= 30){
+            totalCostElem.classList.add("warning");
         }
     }
 
    
 }
 
-radioBillAddBtn.addEventListener('click', textBillTotal);
+radioBillAddBtn.addEventListener('click', radioBillTotal);
