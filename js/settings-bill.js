@@ -41,19 +41,20 @@ addCostBtn.addEventListener('click', radioBillTotalTwo);
 
 function radioBillTotalTwo(){
     var checkedRadioBtn = document.querySelector("input[name='billItemTypeWithSettings']:checked");
-       
+
     if (checkedRadioBtn != null){
+
         var billItemType = checkedRadioBtn.value;
 
         if(billItemType === 'call'){
-            callTotCost += 2.55;
+            callTotCost += callCostSetting;
     
         }else if(billItemType === 'sms'){
-            smsTotCost += 0.65;
+            smsTotCost += smsCallSetting;
     
         }
-
     
+
         callTotalSettingsElem.innerHTML = callTotCost.toFixed(2);
         smsTotalSettingsElem.innerHTML = smsTotCost.toFixed(2);
         var totCost = callTotCost + smsTotCost;
@@ -70,6 +71,18 @@ function radioBillTotalTwo(){
 }
 
 function  updateSettings(){
+  var updatedCallCost = callCostSettingElem.value;
+  var updatedSmsCost = smsCostSettingElem.value;
+
+ 
+
+  if(updatedCallCost != ""){
+     callCostSetting = parseInt(updatedCallCost);
+    }
+    
+  if(updatedSmsCost != ""){
+     smsCallSetting = parseInt(updatedSmsCost);
+    }
 
 }
 
