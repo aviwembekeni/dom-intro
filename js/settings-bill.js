@@ -17,10 +17,15 @@ var addCostBtn = document.querySelector(".addCosts");
 var updateSettingsBtn = document.querySelector(".updateSettings");
 
 // create a variables that will keep track of all the settings
-var callCostSetting = 2.55;
-var smsCallSetting = 0.65;
-var warningLevelSetting = 30.00;
-var criticalLevelSetting = 65.00;
+var callCostSetting = 2.75;
+var smsCallSetting = 0.75;
+var warningLevelSetting = 40.00;
+var criticalLevelSetting = 75.00;
+
+callCostSettingElem.value = callCostSetting;
+smsCostSettingElem.value = smsCallSetting;
+warningLevelSettingElem.value = warningLevelSetting;
+criticalLevelSettingElem.value = criticalLevelSetting;
 
 // create a variables that will keep track of all three totals.
 var callTotCost = 0;
@@ -89,7 +94,7 @@ function  updateSettings(){
      smsCallSetting = parseFloat(updatedSmsCost);
     }
 
-  if(totCost >= criticalLevelSetting){
+//  if(totCost >= criticalLevelSetting){
     if (updatedWarningLevel != "") {
       warningLevelSetting = parseFloat(updatedWarningLevel);
     }
@@ -98,6 +103,6 @@ function  updateSettings(){
       criticalLevelSetting = parseFloat(updatedCriticalLevel);
     }
 
-  }
+//  }
 
 }
