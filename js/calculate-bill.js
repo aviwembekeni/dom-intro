@@ -19,33 +19,33 @@ function totalPhoneBill(callsAndSmses){
 
     var callsAndSmsesList = callsAndSmses.split(',');
     var total = 0;
-   
+
    for(var i=0; i < callsAndSmsesList.length; i++){
-      
+
       if(callsAndSmsesList[i].trim() === 'call'){
         total += 2.75;
-      }else 
+      }else
         if(callsAndSmsesList[i].trim() === 'sms'){
-         total += 0.75;      
+         total += 0.75;
         }
    }
-  
+
    return total.toFixed(2);
  }
 
 function calculateBtnClicked(){
     var billString = billStringInput.value;
-   
+
     var roundedBillTotal = totalPhoneBill(billString);
     billTotalElement.innerHTML = roundedBillTotal;
-   
+
     if(roundedBillTotal >= 30){
         billTotalElement.classList.add("danger") ;
     }else if(roundedBillTotal >= 20){
         billTotalElement.classList.add("warning");
     }
 }
-   
+
 
 //link the function to a click event on the calculate button
 

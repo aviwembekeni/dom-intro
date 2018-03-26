@@ -1,0 +1,22 @@
+{
+  "name": "dom-intro",
+  "version": "1.0.0",
+  "description": "A brief introduction to the browser Document Object Model (DOM)",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aviwembekeni/dom-intro.git"
+  },
+  "author": "Aviwe Ngqukumba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aviwembekeni/dom-intro/issues"
+  },
+  "homepage": "https://github.com/aviwembekeni/dom-intro#readme"
+}
