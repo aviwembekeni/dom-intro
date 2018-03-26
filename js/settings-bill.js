@@ -11,7 +11,7 @@ var warningLevelSettingElem = document.querySelector(".warningLevelSetting");
 var criticalLevelSettingElem = document.querySelector(".criticalLevelSetting");
 
 //get a reference to the add button
-var addCostBtn = document.querySelector(".addCosts"); 
+var addCostBtn = document.querySelector(".addCosts");
 
 //get a reference to the 'Update settings' button
 var updateSettingsBtn = document.querySelector(".updateSettings");
@@ -50,28 +50,28 @@ function radioBillTotalTwo(){
 
             if(billItemType === 'call'){
                 callTotCost += callCostSetting;
-        
+
             }else if(billItemType === 'sms'){
                 smsTotCost += smsCallSetting;
-        
+
             }
-        
+
 
             callTotalSettingsElem.innerHTML = callTotCost.toFixed(2);
             smsTotalSettingsElem.innerHTML = smsTotCost.toFixed(2);
             totCost = callTotCost + smsTotCost;
             totalSettingsElem.innerHTML = totCost.toFixed(2);
-        
+
             if (totCost >= criticalLevelSetting) {
                 totalSettingsElem.classList.add("danger");
             } else if(totCost >= warningLevelSetting){
                 totalSettingsElem.classList.add("warning");
-            
+
             }
         }
     }
 
-   
+
 }
 
 function  updateSettings(){
@@ -79,26 +79,25 @@ function  updateSettings(){
   var updatedSmsCost = smsCostSettingElem.value;
   var updatedWarningLevel = warningLevelSettingElem.value;
   var updatedCriticalLevel = criticalLevelSettingElem.value;
- 
+
 
   if(updatedCallCost != ""){
-     callCostSetting = parseInt(updatedCallCost);
+     callCostSetting = parseFloat(updatedCallCost);
     }
-    
+
   if(updatedSmsCost != ""){
-     smsCallSetting = parseInt(updatedSmsCost);
+     smsCallSetting = parseFloat(updatedSmsCost);
     }
 
-    if(totCost >= criticalLevelSetting){
-      if (updatedWarningLevel != "") {
-        warningLevelSetting = parseInt(updatedWarningLevel);
-      }
-
-      if (updatedCriticalLevel != "") {
-        criticalLevelSetting = parseInt(updatedCriticalLevel);
-      }
-
+  if(totCost >= criticalLevelSetting){
+    if (updatedWarningLevel != "") {
+      warningLevelSetting = parseFloat(updatedWarningLevel);
     }
+
+    if (updatedCriticalLevel != "") {
+      criticalLevelSetting = parseFloat(updatedCriticalLevel);
+    }
+
+  }
 
 }
-
