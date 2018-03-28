@@ -36,7 +36,7 @@ function TextBillTotal(){
 
     };
 
-    console.log(bills);
+  
 
     var checkBill = function(billType){
         return {

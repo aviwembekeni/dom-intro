@@ -45,5 +45,17 @@ describe('calculateBill', function() {
       assert.deepEqual({"requestedBill" : 0, "sms" : 1.5, "call" : 0, "total" : 1.5 }, textBillTotal.check('call'));
     });
 
+    it('should return 0 for all when no data exist - call passed in', function() {
+      var textBillTotal = TextBillTotal();
+
+      assert.deepEqual({"requestedBill" : 0, "sms" : 0, "call" : 0, "total" : 0 }, textBillTotal.check('call'));
+    });
+
+    it('should return 0 for all when no data exist - sms passed in', function() {
+      var textBillTotal = TextBillTotal();
+
+      assert.deepEqual({"requestedBill" : 0, "sms" : 0, "call" : 0, "total" : 0 }, textBillTotal.check('sms'));
+    });
+
 
 });

@@ -18,33 +18,77 @@ var smsTot = 0;
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen
 
-function radioBillTotal(){
-    var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
-    
-    if (checkedRadioBtn != null){
-        var billItemType = checkedRadioBtn.value;
+function RadioBillTotal(){
 
-        if(billItemType === 'call'){
-            callsTot += 2.75;
-    
-        }else if(billItemType === 'sms'){
-            smsTot += 0.75;
-    
+  var bills = {call:0,
+               sms:0,
+               total: 0};
+
+   var calculateRadioBill = function(billItemType){
+
+        if(billItemType == 'call'){
+          bills[billItemType] += 2.75;
+        }else if (billItemType == 'sms') {
+          bills[billItemType] += 0.75;
         }
-    
-        callTotalElem.innerHTML = callsTot.toFixed(2);
+
+        bills['total'] = bills['sms'] + bills['call'];
+
+    };
+
+    var checkRadioBill = function(billItemType){
+        return {
+          requestedBill : bills[billItemType],
+          sms : bills['sms'],
+          call : bills['call'],
+          total : bills['total']
+        }
+    }
+
+    return {
+        calculate : calculateRadioBill,
+        check : checkRadioBill
+
+    }
+
+    /*    callTotalElem.innerHTML = callsTot.toFixed(2);
         smsTotalElem.innerHTML = smsTot.toFixed(2);
         var total = callsTot + smsTot;
         totalCostElem.innerHTML = total.toFixed(2);
-    
+
         if (total >= 50) {
             totalCostElem.classList.add("danger");
         } else if(total >= 30){
             totalCostElem.classList.add("warning");
-        }
+        }*/
     }
 
-   
+var radioBillTotal = RadioBillTotal();
+
+var calcRadioBillClicked = function(){
+
+  var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
+
+  if (checkedRadioBtn != null){
+      var billItemType = checkedRadioBtn.value;
+
+      radioBillTotal.calculate(billItemType);
+      var bill = radioBillTotal.check(billItemType);
+
+      var totSmsBill = bill['sms'];
+      var totCallBill = bill['call'];
+      callTotalElem.innerHTML = totCallBill.toFixed(2);
+      smsTotalElem.innerHTML =  totSmsBill.toFixed(2);
+      var totalCost = bill['total'];
+      totalCostElem.innerHTML = totalCost.toFixed(2);
+
+      if (totalCost >= 50) {
+          totalCostElem.classList.add("danger");
+      } else if(totalCost >= 30){
+          totalCostElem.classList.add("warning");
+      }
+    }
+
 }
 
-radioBillAddBtn.addEventListener('click', radioBillTotal);
+radioBillAddBtn.addEventListener('click', calcRadioBillClicked);
