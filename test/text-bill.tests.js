@@ -25,7 +25,7 @@ describe('calculateBill', function() {
       assert.deepEqual({"requestedBill" : 5.5, "sms" : 1.5, "call" : 5.5, "total" : 7 }, textBillTotal.check('call'));
     });
 
-    it('should return 0 for smes since they dont exist', function() {
+    it('should return 0 for sms since they dont exist', function() {
       var textBillTotal = TextBillTotal();
 
 
@@ -35,7 +35,7 @@ describe('calculateBill', function() {
       assert.deepEqual({"requestedBill" : 0, "sms" : 0, "call" : 5.5, "total" : 5.5 }, textBillTotal.check('sms'));
     });
 
-    it('should return 0 for calls since they dont exist', function() {
+    it('should return 0 for call since they dont exist', function() {
       var textBillTotal = TextBillTotal();
 
 
@@ -45,7 +45,7 @@ describe('calculateBill', function() {
       assert.deepEqual({"requestedBill" : 0, "sms" : 1.5, "call" : 0, "total" : 1.5 }, textBillTotal.check('call'));
     });
 
-    it('should return 0 for all when no data exist - call passed in', function() {
+    /*it('should return 0 for all when no data exist - call passed in', function() {
       var textBillTotal = TextBillTotal();
 
       assert.deepEqual({"requestedBill" : 0, "sms" : 0, "call" : 0, "total" : 0 }, textBillTotal.check('call'));
@@ -55,7 +55,7 @@ describe('calculateBill', function() {
       var textBillTotal = TextBillTotal();
 
       assert.deepEqual({"requestedBill" : 0, "sms" : 0, "call" : 0, "total" : 0 }, textBillTotal.check('sms'));
-    });
+    });*/
 
 
 });

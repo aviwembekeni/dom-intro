@@ -66,7 +66,7 @@ function RadioBillTotal(){
 var radioBillTotal = RadioBillTotal();
 
 var calcRadioBillClicked = function(){
-
+  
   var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
 
   if (checkedRadioBtn != null){

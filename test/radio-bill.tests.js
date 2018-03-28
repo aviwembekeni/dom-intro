@@ -44,17 +44,4 @@ describe('calculateRadioBill', function() {
       assert.deepEqual({"requestedBill" : 0, "sms" : 2.25, "call" : 0, "total" : 2.25 }, radioBillTotal.check('call'));
     });
 
-    it('should return 0 for all when no data exist - call passed in', function() {
-      var radioBillTotal = RadioBillTotal();
-
-      assert.deepEqual({"requestedBill" : 0, "sms" : 0, "call" : 0, "total" : 0 }, radioBillTotal.check('call'));
-    });
-
-    it('should return 0 for all when no data exist - sms passed in', function() {
-      var radioBillTotal = RadioBillTotal();
-
-      assert.deepEqual({"requestedBill" : 0, "sms" : 0, "call" : 0, "total" : 0 }, radioBillTotal.check('sms'));
-    });
-
-
 });
