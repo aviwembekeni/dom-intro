@@ -18,27 +18,69 @@ var smsTotal = 0;
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen
 
-function textBillTotal(){
-    var billTypeEntered  = billTypeTextfield.value.trim();
-    billTypeTextfield.value = "";
-    if(billTypeEntered === 'call'){
-        callsTotal += 2.75;
+function TextBillTotal(){
 
-    }else if(billTypeEntered === 'sms'){
-        smsTotal += 0.75;
+   var bills = {call:0,
+                sms:0,
+                total: 0};
+
+   var calculateBill = function(billType){
+
+        if(billType == 'call'){
+          bills[billType] += 2.75;
+        }else if (billType == 'sms') {
+          bills[billType] += 0.75;
+        }
+
+        bills['total'] = bills['sms'] + bills['call'];
+
+    };
+
+    console.log(bills);
+
+    var checkBill = function(billType){
+        return {
+          requestedBill : bills[billType],
+          sms : bills['sms'],
+          call : bills['call'],
+          total : bills['total']
+        }
+    }
+
+    return {
+        calculate : calculateBill,
+        check : checkBill
 
     }
 
-    callTotalElement.innerHTML = callsTotal.toFixed(2);
-    smsTotalElement.innerHTML = smsTotal.toFixed(2);
-    var totalCost = callsTotal + smsTotal;
-    totalCostElement.innerHTML = totalCost.toFixed(2);
 
-    if (totalCost >= 50) {
-        totalCostElement.classList.add("danger");
-    } else if(totalCost >= 30){
-        totalCostElement.classList.add("warning");
-    }
+
 }
 
-addToBillButton.addEventListener('click', textBillTotal);
+var textBillTotal = TextBillTotal();
+
+var calcBillClicked = function(){
+
+  var typeOfBill = billTypeTextfield.value.trim();
+  billTypeTextfield.value = "";
+
+  textBillTotal.calculate(typeOfBill);
+  var bill = textBillTotal.check(typeOfBill);
+
+  var totSmsBill = bill['sms'];
+  var totCallBill = bill['call'];
+  callTotalElement.innerHTML = totCallBill.toFixed(2);
+  smsTotalElement.innerHTML =  totSmsBill.toFixed(2);
+  var totalCost = bill['total'];
+  totalCostElement.innerHTML = totalCost.toFixed(2);
+
+  if (totalCost >= 50) {
+      totalCostElement.classList.add("danger");
+  } else if(totalCost >= 30){
+      totalCostElement.classList.add("warning");
+  }
+
+}
+
+
+addToBillButton.addEventListener('click', calcBillClicked);
