@@ -33,7 +33,7 @@ var smsTotCost = 0;
 var totCost = 0;
 
 //add an event listener for when the 'Update settings' button is pressed
-updateSettingsBtn.addEventListener('click', updateSettings);
+updateSettingsBtn.addEventListener('click', updateSettingsClicked);
 
 //add an event listener for when the add button is pressed
 
@@ -153,28 +153,69 @@ var calcRadioBillWithSettingsClicked = function(){
     }
   }
 
-function  updateSettings(){
+function UpdateSettingsRequest(){
+
+  // this is scoped inside the ShoppingBasket function
+  var settings = {callCostSetting: 2.75,
+                  smsCallSetting: 0.75,
+                  warningLevelSetting: 40,
+                  criticalLevelSetting: 75
+                  };
+
+  var updateSettings = function(updatedCallCost, updatedSmsCost, updatedWarningLevel, updatedCriticalLevel){
+      if (settings["callCostSetting"] != updatedCallCost && updatedCallCost != ""){
+          settings["callCostSetting"] = updatedCallCost;
+      }
+
+      if (settings["smsCallSetting"] != updatedSmsCost  && updatedSmsCost != ""){
+          settings["smsCallSetting"] = updatedSmsCost;
+      }
+
+      if (settings["warningLevelSetting"] != updatedWarningLevel  && updatedWarningLevel != ""){
+          settings["warningLevelSetting"] = updatedWarningLevel;
+      }
+
+      if (settings["criticalLevelSetting"] != updatedCriticalLevel  && updatedCriticalLevel != ""){
+          settings["criticalLevelSetting"] = updatedCriticalLevel;
+      }
+
+  };
+
+  var checkSettings = function(){
+      return  settings
+  }
+
+  return {
+      update : updateSettings,
+      check : checkSettings
+  }
+}
+
+var updateSettingsRequest = UpdateSettingsRequest();
+
+function  updateSettingsClicked(){
   var updatedCallCost = callCostSettingElem.value;
   var updatedSmsCost = smsCostSettingElem.value;
   var updatedWarningLevel = warningLevelSettingElem.value;
   var updatedCriticalLevel = criticalLevelSettingElem.value;
 
-
+  updateSettingsRequest.update(updatedCallCost, updatedSmsCost, updatedWarningLevel, updatedCriticalLevel);
+  var updatedSettingsState = updateSettingsRequest.check();
   if(updatedCallCost != ""){
-     callCostSetting = parseFloat(updatedCallCost);
+     callCostSetting = parseFloat(updatedSettingsState['callCostSetting']);
     }
 
   if(updatedSmsCost != ""){
-     smsCallSetting = parseFloat(updatedSmsCost);
+     smsCallSetting = parseFloat(updatedSettingsState['smsCallSetting']);
     }
 
 //  if(totCost >= criticalLevelSetting){
     if (updatedWarningLevel != "") {
-      warningLevelSetting = parseFloat(updatedWarningLevel);
+      warningLevelSetting = parseFloat(updatedSettingsState['warningLevelSetting']);
     }
 
     if (updatedCriticalLevel != "") {
-      criticalLevelSetting = parseFloat(updatedCriticalLevel);
+      criticalLevelSetting = parseFloat(updatedSettingsState['criticalLevelSetting']);
     }
 
 //  }
