@@ -1,28 +1,37 @@
 describe('updateSettings', function() {
 
 
-    it('should return updated settings object', function() {
+    it('should return updated call value', function() {
       var updateSettingsRequest = UpdateSettingsRequest();
 
-      updateSettingsRequest.update(5, 7.5, 60, 85);
+      updateSettingsRequest.updateCall(5);
+      updateSettingsRequest.updateCall(9);
 
-      assert.deepEqual({"callCostSetting" : 5, "smsCallSetting" : 7.5, "warningLevelSetting" : 60, "criticalLevelSetting" : 85 }, updateSettingsRequest.check());
+      assert.equal(9, updateSettingsRequest.checkCall());
     });
 
-    it('should return updated settings object and should have original value for data that is not updated or left blank', function() {
+    it('should return updated sms value', function() {
       var updateSettingsRequest = UpdateSettingsRequest();
-      updateSettingsRequest.update(5, 0.75, 80, 90);
-      updateSettingsRequest.update(2.75,"" , 70, 85);
+      updateSettingsRequest.updateSms(10);
+      updateSettingsRequest.updateSms(7);
 
-      assert.deepEqual({"callCostSetting" : 2.75, "smsCallSetting" : 0.75, "warningLevelSetting" : 70, "criticalLevelSetting" : 85 }, updateSettingsRequest.check());
+      assert.equal(7, updateSettingsRequest.checkSms());
     });
 
-    it('should return updated settings object and should have original value for data that is not updated or left blank and should change only fields with updated values', function() {
+    it('should return updated warningLevel value', function() {
       var updateSettingsRequest = UpdateSettingsRequest();
-      updateSettingsRequest.update(5, 10, 75, 90);
-      updateSettingsRequest.update("",7 , "", "");
+      updateSettingsRequest.updateWarningLevel(50);
+      updateSettingsRequest.updateWarningLevel(70);
 
-      assert.deepEqual({"callCostSetting" : 5, "smsCallSetting" : 7, "warningLevelSetting" : 75, "criticalLevelSetting" : 90 }, updateSettingsRequest.check());
+      assert.equal(70, updateSettingsRequest.checkWarningLevel());
+    });
+
+    it('should return updated criticalgLevel value', function() {
+      var updateSettingsRequest = UpdateSettingsRequest();
+      updateSettingsRequest.updateCriticalLevel(80);
+      updateSettingsRequest.updateCriticalLevel(90);
+
+      assert.equal(90, updateSettingsRequest.checkCriticalLevel());
     });
 
 });

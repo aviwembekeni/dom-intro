@@ -32,8 +32,7 @@ var callTotCost = 0;
 var smsTotCost = 0;
 var totCost = 0;
 
-//add an event listener for when the 'Update settings' button is pressed
-updateSettingsBtn.addEventListener('click', updateSettingsClicked);
+
 
 //add an event listener for when the add button is pressed
 
@@ -85,9 +84,8 @@ function RadioBillTotalTwo(){
                sms:0,
                total: 0};
 
-   var calculateRadioBillSett = function(billItemType, totCost, criticalLevelSetting){
+   var calculateRadioBillSett = function(billItemType){
 
-       if(totCost < criticalLevelSetting){
         if(billItemType == 'call'){
           bills[billItemType] += callCostSetting;
         }else if (billItemType == 'sms') {
@@ -95,7 +93,7 @@ function RadioBillTotalTwo(){
         }
 
         bills['total'] = bills['sms'] + bills['call'];
-      }
+
     };
 
     var checkRadioBillSett = function(billItemType){
@@ -113,16 +111,6 @@ function RadioBillTotalTwo(){
 
     }
 
-    /*    callTotalElem.innerHTML = callsTot.toFixed(2);
-        smsTotalElem.innerHTML = smsTot.toFixed(2);
-        var total = callsTot + smsTot;
-        totalCostElem.innerHTML = total.toFixed(2);
-
-        if (total >= 50) {
-            totalCostElem.classList.add("danger");
-        } else if(total >= 30){
-            totalCostElem.classList.add("warning");
-        }*/
     }
 
 var radioBillTotalTwo = RadioBillTotalTwo();
@@ -131,11 +119,11 @@ var calcRadioBillWithSettingsClicked = function(){
 
   var checkedRadioBtn = document.querySelector("input[name='billItemTypeWithSettings']:checked");
 
-  if (checkedRadioBtn != null){
+  if (checkedRadioBtn != null && criticalLevelSetting > totCost){
 
       var billItemType = checkedRadioBtn.value;
 
-      radioBillTotalTwo.calculate(billItemType, totCost, criticalLevelSetting);
+      radioBillTotalTwo.calculate(billItemType);
       var bill = radioBillTotalTwo.check(billItemType);
 
       var totSmsBill = bill['sms'];
@@ -157,12 +145,28 @@ function UpdateSettingsRequest(){
 
   // this is scoped inside the ShoppingBasket function
   var settings = {callCostSetting: 2.75,
-                  smsCallSetting: 0.75,
+                  smsCostSetting: 0.75,
                   warningLevelSetting: 40,
                   criticalLevelSetting: 75
                   };
 
-  var updateSettings = function(updatedCallCost, updatedSmsCost, updatedWarningLevel, updatedCriticalLevel){
+ var updateCallCost = function(updatedCallCost){
+   settings["callCostSetting"] = updatedCallCost;
+ }
+
+ var updateSmsCost = function(updatedSmsCost){
+   settings["smsCostSetting"] = updatedSmsCost;
+ }
+
+ var updateWarningLevelSetting = function(updatedWarningLevel){
+   settings["warningLevelSetting"] = updatedWarningLevel;
+ }
+
+ var updateCriticalLevelSetting = function(updatedCriticalLevel){
+   settings["criticalLevelSetting"] = updatedCriticalLevel;
+ }
+
+  /*var updateSettings = function(updatedCallCost, updatedSmsCost, updatedWarningLevel, updatedCriticalLevel){
       if (settings["callCostSetting"] != updatedCallCost && updatedCallCost != ""){
           settings["callCostSetting"] = updatedCallCost;
       }
@@ -179,15 +183,37 @@ function UpdateSettingsRequest(){
           settings["criticalLevelSetting"] = updatedCriticalLevel;
       }
 
-  };
+  };*/
 
-  var checkSettings = function(){
-      return  settings
+  var checkCallCost = function(){
+      return  settings["callCostSetting"]
   }
 
+  var checkSmsCost = function(){
+      return  settings["smsCostSetting"]
+  }
+
+  var checkWarningLevelSetting = function(){
+      return  settings["warningLevelSetting"]
+  }
+
+  var checkCriticalLevelSetting = function(){
+      return  settings["criticalLevelSetting"]
+  }
+
+  /*var checkSettings = function(){
+      return  settings
+  }*/
+
   return {
-      update : updateSettings,
-      check : checkSettings
+      updateCall : updateCallCost,
+      checkCall : checkCallCost,
+      updateSms : updateSmsCost,
+      checkSms : checkSmsCost,
+      updateWarningLevel : updateWarningLevelSetting,
+      checkWarningLevel : checkWarningLevelSetting,
+      updateCriticalLevel : updateCriticalLevelSetting,
+      checkCriticalLevel : checkCriticalLevelSetting
   }
 }
 
@@ -199,23 +225,31 @@ function  updateSettingsClicked(){
   var updatedWarningLevel = warningLevelSettingElem.value;
   var updatedCriticalLevel = criticalLevelSettingElem.value;
 
-  updateSettingsRequest.update(updatedCallCost, updatedSmsCost, updatedWarningLevel, updatedCriticalLevel);
-  var updatedSettingsState = updateSettingsRequest.check();
+
+//  var updatedSettingsState = updateSettingsRequest.check();
   if(updatedCallCost != ""){
-     callCostSetting = parseFloat(updatedSettingsState['callCostSetting']);
+    updateSettingsRequest.updateCall(updatedCallCost);
+    var updatedCallCostSetting = updateSettingsRequest.checkCall();
+     callCostSetting = parseFloat(updatedCallCostSetting);
     }
 
   if(updatedSmsCost != ""){
-     smsCallSetting = parseFloat(updatedSettingsState['smsCallSetting']);
+    updateSettingsRequest.updateSms(updatedSmsCost);
+    var updatedSmsCostSetting = updateSettingsRequest.checkSms();
+     smsCallSetting = parseFloat(updatedSmsCostSetting);
     }
 
 //  if(totCost >= criticalLevelSetting){
     if (updatedWarningLevel != "") {
-      warningLevelSetting = parseFloat(updatedSettingsState['warningLevelSetting']);
+      updateSettingsRequest.updateWarningLevel(updatedWarningLevel);
+      var updatedWarningLevelSetting = updateSettingsRequest.checkWarningLevel();
+      warningLevelSetting = parseFloat(updatedWarningLevelSetting);
     }
 
     if (updatedCriticalLevel != "") {
-      criticalLevelSetting = parseFloat(updatedSettingsState['criticalLevelSetting']);
+      updateSettingsRequest.updateCriticalLevel(updatedCriticalLevel);
+      var updatedCriticalLevelSetting = updateSettingsRequest.checkCriticalLevel();
+      criticalLevelSetting = parseFloat(updatedCriticalLevelSetting);
     }
 
 //  }
@@ -224,3 +258,6 @@ function  updateSettingsClicked(){
 
 
 addCostBtnSett.addEventListener('click', calcRadioBillWithSettingsClicked);
+
+//add an event listener for when the 'Update settings' button is pressed
+updateSettingsBtn.addEventListener('click', updateSettingsClicked);
