@@ -27,9 +27,6 @@ smsCostSettingElem.value = smsCallSetting;
 warningLevelSettingElem.value = warningLevelSetting;
 criticalLevelSettingElem.value = criticalLevelSetting;
 
-// create a variables that will keep track of all three totals.
-var callTotCost = 0;
-var smsTotCost = 0;
 var totCost = 0;
 
 
@@ -43,40 +40,6 @@ var totCost = 0;
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen.
 // * check the value thresholds and display the total value in the right color.
-
-/*function radioBillTotalTwo(){
-    var checkedRadioBtn = document.querySelector("input[name='billItemTypeWithSettings']:checked");
-
-    if (checkedRadioBtn != null){
-       if(totCost < criticalLevelSetting){
-
-            var billItemType = checkedRadioBtn.value;
-
-            if(billItemType === 'call'){
-                callTotCost += callCostSetting;
-
-            }else if(billItemType === 'sms'){
-                smsTotCost += smsCallSetting;
-
-            }
-
-
-            callTotalSettingsElem.innerHTML = callTotCost.toFixed(2);
-            smsTotalSettingsElem.innerHTML = smsTotCost.toFixed(2);
-            totCost = callTotCost + smsTotCost;
-            totalSettingsElem.innerHTML = totCost.toFixed(2);
-
-            if (totCost >= criticalLevelSetting) {
-                totalSettingsElem.classList.add("danger");
-            } else if(totCost >= warningLevelSetting){
-                totalSettingsElem.classList.add("warning");
-
-            }
-        }
-    }
-
-
-}*/
 
 function RadioBillTotalTwo(){
 
@@ -143,7 +106,7 @@ var calcRadioBillWithSettingsClicked = function(){
 
 function UpdateSettingsRequest(){
 
-  // this is scoped inside the ShoppingBasket function
+
   var settings = {callCostSetting: 2.75,
                   smsCostSetting: 0.75,
                   warningLevelSetting: 40,
@@ -166,24 +129,6 @@ function UpdateSettingsRequest(){
    settings["criticalLevelSetting"] = updatedCriticalLevel;
  }
 
-  /*var updateSettings = function(updatedCallCost, updatedSmsCost, updatedWarningLevel, updatedCriticalLevel){
-      if (settings["callCostSetting"] != updatedCallCost && updatedCallCost != ""){
-          settings["callCostSetting"] = updatedCallCost;
-      }
-
-      if (settings["smsCallSetting"] != updatedSmsCost  && updatedSmsCost != ""){
-          settings["smsCallSetting"] = updatedSmsCost;
-      }
-
-      if (settings["warningLevelSetting"] != updatedWarningLevel  && updatedWarningLevel != ""){
-          settings["warningLevelSetting"] = updatedWarningLevel;
-      }
-
-      if (settings["criticalLevelSetting"] != updatedCriticalLevel  && updatedCriticalLevel != ""){
-          settings["criticalLevelSetting"] = updatedCriticalLevel;
-      }
-
-  };*/
 
   var checkCallCost = function(){
       return  settings["callCostSetting"]
@@ -201,9 +146,7 @@ function UpdateSettingsRequest(){
       return  settings["criticalLevelSetting"]
   }
 
-  /*var checkSettings = function(){
-      return  settings
-  }*/
+
 
   return {
       updateCall : updateCallCost,
@@ -226,7 +169,6 @@ function  updateSettingsClicked(){
   var updatedCriticalLevel = criticalLevelSettingElem.value;
 
 
-//  var updatedSettingsState = updateSettingsRequest.check();
   if(updatedCallCost != ""){
     updateSettingsRequest.updateCall(updatedCallCost);
     var updatedCallCostSetting = updateSettingsRequest.checkCall();
@@ -239,7 +181,6 @@ function  updateSettingsClicked(){
      smsCallSetting = parseFloat(updatedSmsCostSetting);
     }
 
-//  if(totCost >= criticalLevelSetting){
     if (updatedWarningLevel != "") {
       updateSettingsRequest.updateWarningLevel(updatedWarningLevel);
       var updatedWarningLevelSetting = updateSettingsRequest.checkWarningLevel();
@@ -252,7 +193,6 @@ function  updateSettingsClicked(){
       criticalLevelSetting = parseFloat(updatedCriticalLevelSetting);
     }
 
-//  }
 
 }
 

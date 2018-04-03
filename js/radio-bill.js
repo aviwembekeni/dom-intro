@@ -7,10 +7,6 @@ var callTotalElem = document.querySelector(".callTotalTwo");
 var smsTotalElem = document.querySelector(".smsTotalTwo");
 var totalCostElem = document.querySelector(".totalTwo");
 
-//create a variable that will keep track of the total bill
-var callsTot = 0;
-var smsTot = 0;
-
 //add an event listener for when the add button is pressed
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
@@ -45,28 +41,18 @@ function RadioBillTotal(){
         }
     }
 
-    return {
-        calculate : calculateRadioBill,
-        check : checkRadioBill
+      return {
+          calculate : calculateRadioBill,
+          check : checkRadioBill
 
-    }
+      }
 
-    /*    callTotalElem.innerHTML = callsTot.toFixed(2);
-        smsTotalElem.innerHTML = smsTot.toFixed(2);
-        var total = callsTot + smsTot;
-        totalCostElem.innerHTML = total.toFixed(2);
-
-        if (total >= 50) {
-            totalCostElem.classList.add("danger");
-        } else if(total >= 30){
-            totalCostElem.classList.add("warning");
-        }*/
     }
 
 var radioBillTotal = RadioBillTotal();
 
 var calcRadioBillClicked = function(){
-  
+
   var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
 
   if (checkedRadioBtn != null){
