@@ -5,8 +5,22 @@ var billItemTypeRadio = document.querySelector(".billItemTypeRadio");
 var radioBillAddBtn = document.querySelector(".radioBillAddBtn");
 var callTotalElem = document.querySelector(".callTotalTwo");
 var smsTotalElem = document.querySelector(".smsTotalTwo");
-var totalCostElem = document.querySelector(".totalTwo");
+var totalCostElem = document.querySelector(".totalOne");
 
+var templateSource = document.querySelector(".totalsTemplate").innerHTML;
+
+var totalsTemplate = Handlebars.compile(templateSource);
+
+var totalsDisplayElem = document.querySelector(".radioBillTotalsSection");
+
+var totalsDataHTML = totalsTemplate({
+    callTotal : 0,
+    smsTotal : 0,
+    total : 0
+
+});
+
+totalsDisplayElem.innerHTML = totalsDataHTML;
 //add an event listener for when the add button is pressed
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
@@ -63,10 +77,21 @@ var calcRadioBillClicked = function(){
 
       var totSmsBill = bill['sms'];
       var totCallBill = bill['call'];
-      callTotalElem.innerHTML = totCallBill.toFixed(2);
-      smsTotalElem.innerHTML =  totSmsBill.toFixed(2);
       var totalCost = bill['total'];
-      totalCostElem.innerHTML = totalCost.toFixed(2);
+
+      var totalsDataHTML = totalsTemplate({
+          callTotal : totCallBill.toFixed(2),
+          smsTotal : totSmsBill.toFixed(2),
+          total : totalCost.toFixed(2)
+
+      });
+
+      totalsDisplayElem.innerHTML = totalsDataHTML;
+
+    /*  callTotalElem.innerHTML = totCallBill.toFixed(2);
+      smsTotalElem.innerHTML =  totSmsBill.toFixed(2);
+
+      totalCostElem.innerHTML = totalCost.toFixed(2);*/
 
       if (totalCost >= 50) {
           totalCostElem.classList.add("danger");

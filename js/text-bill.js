@@ -6,20 +6,20 @@ var callTotalElement = document.querySelector(".callTotalOne");
 var smsTotalElement = document.querySelector(".smsTotalOne");
 var totalCostElement = document.querySelector(".totalOne");
 
-var templateSource = document.querySelector(".textBillTotalsTemplate").innerHTML;
+var textBillTemplateSource = document.querySelector(".totalsTemplate").innerHTML;
 
-var totalsTemplate = Handlebars.compile(templateSource);
+var textBillTotalsTemplate = Handlebars.compile(textBillTemplateSource);
 
-var totalsDisplayElem = document.querySelector(".textBillTotalsSection");
+var textBillTotalsDisplayElem = document.querySelector(".textBillTotalsSection");
 
-var totalsDataHTML = totalsTemplate({
+var textBillTotalsDataHTML = textBillTotalsTemplate({
     callTotal : 0,
     smsTotal : 0,
     total : 0
 
 });
 
-totalsDisplayElem.innerHTML = totalsDataHTML;
+textBillTotalsDisplayElem.innerHTML = textBillTotalsDataHTML;
 
 
 //in the event listener check if the value in the bill type textbox is 'sms' or 'call'
@@ -81,14 +81,14 @@ var calcBillClicked = function(){
   var totCallBill = bill['call'];
   var totalCost = bill['total'];
 
-  var totalsDataHTML = totalsTemplate({
+  var textBillTotalsDataHTML = textBillTotalsTemplate({
       callTotal : totCallBill.toFixed(2),
       smsTotal : totSmsBill.toFixed(2),
       total : totalCost.toFixed(2)
 
   });
 
-  totalsDisplayElem.innerHTML = totalsDataHTML;
+  textBillTotalsDisplayElem.innerHTML = textBillTotalsDataHTML;
 
 
   if (totalCost >= 50) {
