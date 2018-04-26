@@ -80,22 +80,26 @@ var calcBillClicked = function(){
   var totSmsBill = bill['sms'];
   var totCallBill = bill['call'];
   var totalCost = bill['total'];
+  var billTotStyle = "";
+
+  if (totalCost >= 50) {
+      billTotStyle = "danger";
+  } else if(totalCost >= 30){
+      billTotStyle = "warning";
+  }
 
   var textBillTotalsDataHTML = textBillTotalsTemplate({
       callTotal : totCallBill.toFixed(2),
       smsTotal : totSmsBill.toFixed(2),
-      total : totalCost.toFixed(2)
+      total : totalCost.toFixed(2),
+      billTotalStyle : billTotStyle
 
   });
 
   textBillTotalsDisplayElem.innerHTML = textBillTotalsDataHTML;
 
 
-  if (totalCost >= 50) {
-      totalCostElement.classList.add("danger");
-  } else if(totalCost >= 30){
-      totalCostElement.classList.add("warning");
-  }
+
 
 }
 

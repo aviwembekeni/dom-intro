@@ -5,7 +5,6 @@ var billItemTypeRadio = document.querySelector(".billItemTypeRadio");
 var radioBillAddBtn = document.querySelector(".radioBillAddBtn");
 var callTotalElem = document.querySelector(".callTotalTwo");
 var smsTotalElem = document.querySelector(".smsTotalTwo");
-var totalCostElem = document.querySelector(".totalOne");
 
 var templateSource = document.querySelector(".totalsTemplate").innerHTML;
 
@@ -78,26 +77,24 @@ var calcRadioBillClicked = function(){
       var totSmsBill = bill['sms'];
       var totCallBill = bill['call'];
       var totalCost = bill['total'];
+      var billTotStyle = "";
+
+      if (totalCost >= 50) {
+          billTotStyle = "danger";
+      } else if(totalCost >= 30){
+          billTotStyle = "warning";
+      }
 
       var totalsDataHTML = totalsTemplate({
           callTotal : totCallBill.toFixed(2),
           smsTotal : totSmsBill.toFixed(2),
-          total : totalCost.toFixed(2)
+          total : totalCost.toFixed(2),
+          billTotalStyle : billTotStyle
 
       });
 
       totalsDisplayElem.innerHTML = totalsDataHTML;
 
-    /*  callTotalElem.innerHTML = totCallBill.toFixed(2);
-      smsTotalElem.innerHTML =  totSmsBill.toFixed(2);
-
-      totalCostElem.innerHTML = totalCost.toFixed(2);*/
-
-      if (totalCost >= 50) {
-          totalCostElem.classList.add("danger");
-      } else if(totalCost >= 30){
-          totalCostElem.classList.add("warning");
-      }
     }
 
 }
