@@ -57,9 +57,18 @@ function TextBillTotal(){
         }
     }
 
+    var checkBillTotatalStyle = function(){
+      if (bills['total'] >= 50) {
+          return "danger";
+      } else if(bills['total'] >= 30){
+          return "warning";
+      }
+    }
+
     return {
         calculate : calculateBill,
-        check : checkBill
+        check : checkBill,
+        checkBillTotStyle :  checkBillTotatalStyle
 
     }
 
@@ -80,13 +89,7 @@ var calcBillClicked = function(){
   var totSmsBill = bill['sms'];
   var totCallBill = bill['call'];
   var totalCost = bill['total'];
-  var billTotStyle = "";
-
-  if (totalCost >= 50) {
-      billTotStyle = "danger";
-  } else if(totalCost >= 30){
-      billTotStyle = "warning";
-  }
+  var billTotStyle = textBillTotal.checkBillTotStyle();
 
   var textBillTotalsDataHTML = textBillTotalsTemplate({
       callTotal : totCallBill.toFixed(2),

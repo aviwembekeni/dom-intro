@@ -54,9 +54,18 @@ function RadioBillTotal(){
         }
     }
 
+    var checkBillTotatalStyle = function(){
+      if (bills['total'] >= 50) {
+          return "danger";
+      } else if(bills['total'] >= 30){
+          return "warning";
+      }
+    }
+
       return {
           calculate : calculateRadioBill,
-          check : checkRadioBill
+          check : checkRadioBill,
+          checkBillTotStyle :  checkBillTotatalStyle
 
       }
 
@@ -77,7 +86,7 @@ var calcRadioBillClicked = function(){
       var totSmsBill = bill['sms'];
       var totCallBill = bill['call'];
       var totalCost = bill['total'];
-      var billTotStyle = "";
+      var billTotStyle = radioBillTotal.checkBillTotStyle();
 
       if (totalCost >= 50) {
           billTotStyle = "danger";
