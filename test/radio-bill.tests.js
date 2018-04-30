@@ -47,7 +47,7 @@ describe('calculateRadioBill', function() {
 });
 
 
-describe('checkBillTotatalStyle', function() {
+describe('checkRadioBillTotatalStyle', function() {
 
 
     it("should return 'warning' if the total is between 30 and less than 50", function() {

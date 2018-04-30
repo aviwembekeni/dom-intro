@@ -46,3 +46,67 @@ describe('calculateBill', function() {
     });
 
 });
+
+describe('checkTextBillTotatalStyle', function() {
+
+
+    it("should return 'warning' if the total is between 30 and less than 50", function() {
+      var textBillTotal = RadioBillTotal();
+
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+
+
+      assert.deepEqual("warning", textBillTotal.checkBillTotStyle());
+    });
+
+    it("should return 'danger' if the total is greater than 50", function() {
+      var textBillTotal = RadioBillTotal();
+
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('sms');
+      textBillTotal.calculate('call');
+      textBillTotal.calculate('call');
+
+
+      assert.deepEqual("danger", textBillTotal.checkBillTotStyle());
+    });
+
+
+
+});
